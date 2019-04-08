@@ -16,13 +16,15 @@ class Counter extends Component {
     };
 
     incrementAsync = (count) => {
-        setTimeout(()=>this.props.increment(count),1000);
+        setTimeout(()=>this.props.increment(count), );
+        
         
         // Stretch Problem: Implement an increment function that
         // increments after waiting for one second
     };
 
     render() {
+        console.log('counter rendering')
         // Fill in the two button onClick methods
         // Upon clicking these buttons, the count
         // should decrement or increment accordingly
