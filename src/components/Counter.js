@@ -3,12 +3,21 @@ import { connect } from 'react-redux';
 import { increment, decrement } from '../actions';
 
 class Counter extends Component {
-    incrementIfOdd = () => {
+    incrementIfOdd = (count) => {
         // Stretch Problem: Implement an increment function that
         // only increments if the counter value is odd
+        if (count %2 !== 0){
+            console.log(count)
+            this.props.increment(count)
+        }
+        else{
+            alert('count not odd')
+        }
     };
 
-    incrementAsync = () => {
+    incrementAsync = (count) => {
+        setTimeout(()=>this.props.increment(count),1000);
+        
         // Stretch Problem: Implement an increment function that
         // increments after waiting for one second
     };
@@ -28,12 +37,12 @@ class Counter extends Component {
                 </button>
                  {/* Uncomment these button tags if you got
                 around to implementing the extra credit functions */}
-                {/* <button onClick={this.incrementIfOdd}>
+                <button onClick={()=>this.incrementIfOdd(this.props.count)}>
                     Increment if odd
                 </button>
-                <button onClick={this.incrementAsync}>
+                <button onClick={()=>this.incrementAsync(this.props.count)}>
                     Increment async
-                </button>  */}
+                </button>  
             </p>
         );
     }
@@ -57,3 +66,6 @@ const mapStateToProps = (state) => {
 // are reliant on Redux, along with the component itself, so that Redux
 // makes itself known to this component.
 export default connect(mapStateToProps, { increment, decrement })(Counter);
+// Ah HA! Because we are exporting the HOC, it is necessary to reference the imported
+//functions of increment and decrement as this.props.decrement because they are
+//being passed to the Counter component via the wrapper context.
